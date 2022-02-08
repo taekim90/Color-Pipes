@@ -12,11 +12,19 @@ h1 {
     margin: 3vh 0vh 0vh 0vh
 }
 
-.buttons, .winning-message{
+.buttons, .winning-message {
     display: flex;
     /* justify-content: space-evenly; */
     justify-content: center;
-    margin: 2vh
+    margin: 1vh
+}
+
+.click-counter {
+    display: flex;
+    justify-content: center;
+    font-family: 'Bangers', cursive;
+    font-size: 3vh;
+    margin: 1vh;
 }
 
 .playing-field {
@@ -35,10 +43,6 @@ h1 {
     font-family: 'Bangers', cursive;
     font-size: 2vw;
 }
-
-/* .levels {
-    display: flex;
-} */
 
 .pipes {
     border: .5vh solid black;
