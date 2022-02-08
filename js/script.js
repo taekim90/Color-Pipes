@@ -165,17 +165,26 @@ const selectColor = (event) => {
 
 
 const fillInColor = (event) => {
+    if (color === 'slategray') {
+        return;
+    }
     // this prevents the original predetermined pipes from being colored over
     // it first checks for which level you are on and checks if the pipe you are trying to overwrite is a preset pipe
     if (level1 === true && (event.target.id === 'pipe1' || event.target.id === 'pipe4' || event.target.id === 'pipe5' || event.target.id === 'pipe22' || event.target.id === 'pipe20' || event.target.id === 'pipe24' || event.target.id === 'pipe9' || event.target.id === 'pipe21' || event.target.id === 'pipe13' || event.target.id === 'pipe17')) {
-        
-        
+        if (color !== event.target.style.backgroundColor) {
+            color = 'slategray'
+        }
         return
     } else if (level2 === true && (event.target.id === 'pipe1' || event.target.id === 'pipe17' || event.target.id === 'pipe2' || event.target.id === 'pipe9' || event.target.id === 'pipe3' || event.target.id === 'pipe18' || event.target.id === 'pipe16' || event.target.id === 'pipe23' || event.target.id === 'pipe19' || event.target.id === 'pipe24')) {
+        if (color !== event.target.style.backgroundColor) {
+            color = 'slategray'
+        }
         return
     } else if (level3 === true && (event.target.id === 'pipe1' || event.target.id === 'pipe6' || event.target.id === 'pipe5' || event.target.id === 'pipe13' || event.target.id === 'pipe12' || event.target.id === 'pipe23' || event.target.id === 'pipe9' || event.target.id === 'pipe17' || event.target.id === 'pipe10' || event.target.id === 'pipe24')) {
+        if (color !== event.target.style.backgroundColor) {
+            color = 'slategray'
+        }
         return
-        
     // this if condition checks to see if we are overwriting a pipe that already has a color
     } else if (event.target.style.backgroundColor !== 'slategray') {
         // check what color that target pipe has and store it in a variable
@@ -184,6 +193,17 @@ const fillInColor = (event) => {
         const allPipes = document.querySelectorAll('.pipes')
         const arrayOfAllPipes = Array.from(allPipes)
         for (let i = 0; i < arrayOfAllPipes.length; i++) {
+            if (overwrittenColor === 'red') {
+                redCounter = 0
+            } else if (overwrittenColor === 'orange') {
+                orangeCounter = 0
+            } else if (overwrittenColor === 'yellow') {
+                yellowCounter = 0
+            } else if (overwrittenColor === 'green') {
+                greenCounter = 0
+            } else if (overwrittenColor === 'blue') {
+                blueCounter = 0
+            }
             if (arrayOfAllPipes[i].style.backgroundColor === overwrittenColor) {
                 arrayOfAllPipes[i].style.backgroundColor = 'slategray'
                 // without this next code, you start by coloring in a gray space before the selected color
@@ -238,15 +258,16 @@ const winCondition = () => {
     // if these conditions are met, then you win!
     const allPipes = document.querySelectorAll('.pipes')
     const arrayOfAllPipes = Array.from(allPipes)
+    let isGray = false
     for (let i = 0; i < arrayOfAllPipes.length; i++) {
         if (arrayOfAllPipes[i].style.backgroundColor === 'slategray') {
-        // console.log('there is still gray space)
-        } else {
-            if (redCounter === 1 && orangeCounter === 1 && yellowCounter === 1 && greenCounter === 1 && blueCounter === 1) {
-                document.querySelector('.winning-message').innerText = 'WINNER!!!'
-                document.querySelector('.winning-message').style.color = 'gold'
-            }
+            isGray = true;
+            break
         } 
+    }
+    if (!isGray && redCounter === 1 && orangeCounter === 1 && yellowCounter === 1 && greenCounter === 1 && blueCounter === 1) {
+        document.querySelector('.winning-message').innerText = 'WINNER!!!'
+        document.querySelector('.winning-message').style.color = 'gold'
     }
 }
 
