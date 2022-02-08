@@ -56,3 +56,17 @@ h1 {
     justify-content: center;
     margin: 2vh
 }
+
+
+@media screen and (max-width: 925px) {
+    .playing-field {
+        height: 50vw;
+        width: 50vw;
+    }
+    .pipes {
+        border: .5vh solid black;
+        width: 8.1vw;
+        height: 8.1vw;
+        cursor: grab;
+    }
+}

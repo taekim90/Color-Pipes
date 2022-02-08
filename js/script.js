@@ -3,6 +3,7 @@ const generateLevelOne = () => {
     level1 = true;
     level2 = false;
     level3 = false;
+    level4 = false;
     clickCounter = 0;
     resetCounter();
     // if level 1 is clicked again, need to reset/clear the divs or else new squares keep being created
@@ -25,14 +26,14 @@ const generateLevelOne = () => {
 const predeterminedPipes1 = () => {
     document.querySelector("#pipe1").style.backgroundColor = "red";
     document.querySelector("#pipe4").style.backgroundColor = "red";
-    document.querySelector("#pipe5").style.backgroundColor = "blue";
-    document.querySelector("#pipe22").style.backgroundColor = "blue";
-    document.querySelector("#pipe20").style.backgroundColor = "green";
-    document.querySelector("#pipe24").style.backgroundColor = "green";
-    document.querySelector("#pipe9").style.backgroundColor = "orange";
-    document.querySelector("#pipe21").style.backgroundColor = "orange";
-    document.querySelector("#pipe13").style.backgroundColor = "yellow";
-    document.querySelector("#pipe17").style.backgroundColor = "yellow";
+    document.querySelector("#pipe5").style.backgroundColor = "orange";
+    document.querySelector("#pipe22").style.backgroundColor = "orange";
+    document.querySelector("#pipe20").style.backgroundColor = "yellow";
+    document.querySelector("#pipe24").style.backgroundColor = "yellow";
+    document.querySelector("#pipe9").style.backgroundColor = "green";
+    document.querySelector("#pipe21").style.backgroundColor = "green";
+    document.querySelector("#pipe13").style.backgroundColor = "blue";
+    document.querySelector("#pipe17").style.backgroundColor = "blue";
 };
 
 const generateLevelTwo = () => {
@@ -40,6 +41,7 @@ const generateLevelTwo = () => {
     level1 = false;
     level2 = true;
     level3 = false;
+    level4 = false;
     clickCounter = 0;
     resetCounter();
     const playingField = document.querySelector(".playing-field");
@@ -60,14 +62,14 @@ const generateLevelTwo = () => {
 const predeterminedPipes2 = () => {
     document.querySelector("#pipe1").style.backgroundColor = "red";
     document.querySelector("#pipe17").style.backgroundColor = "red";
-    document.querySelector("#pipe2").style.backgroundColor = "blue";
-    document.querySelector("#pipe9").style.backgroundColor = "blue";
-    document.querySelector("#pipe3").style.backgroundColor = "green";
-    document.querySelector("#pipe18").style.backgroundColor = "green";
-    document.querySelector("#pipe16").style.backgroundColor = "orange";
-    document.querySelector("#pipe23").style.backgroundColor = "orange";
-    document.querySelector("#pipe19").style.backgroundColor = "yellow";
-    document.querySelector("#pipe24").style.backgroundColor = "yellow";
+    document.querySelector("#pipe2").style.backgroundColor = "orange";
+    document.querySelector("#pipe9").style.backgroundColor = "orange";
+    document.querySelector("#pipe3").style.backgroundColor = "yellow";
+    document.querySelector("#pipe18").style.backgroundColor = "yellow";
+    document.querySelector("#pipe16").style.backgroundColor = "green";
+    document.querySelector("#pipe23").style.backgroundColor = "green";
+    document.querySelector("#pipe19").style.backgroundColor = "blue";
+    document.querySelector("#pipe24").style.backgroundColor = "blue";
 };
 
 const generateLevelThree = () => {
@@ -75,6 +77,7 @@ const generateLevelThree = () => {
     level1 = false;
     level2 = false;
     level3 = true;
+    level4 = false;
     clickCounter = 0;
     resetCounter();
     const playingField = document.querySelector(".playing-field");
@@ -104,6 +107,44 @@ const predeterminedPipes3 = () => {
     document.querySelector("#pipe10").style.backgroundColor = "yellow";
     document.querySelector("#pipe24").style.backgroundColor = "yellow";
 };
+
+const generateLevelFour = () => {
+    document.querySelector(".winning-message").innerText = "";
+    level1 = false;
+    level2 = false;
+    level3 = false;
+    level4 = true;
+    clickCounter = 0;
+    resetCounter();
+    const playingField = document.querySelector(".playing-field");
+    playingField.innerText = "";
+    for (let i = 1; i < 26; i++) {
+        pipeSpace = document.createElement("div");
+        pipeSpace.classList.add("pipes");
+        pipeSpace.setAttribute("id", "pipe" + i);
+        pipeSpace.setAttribute("draggable", true);
+        pipeSpace.style.backgroundColor = "slategray";
+        playingField.appendChild(pipeSpace);
+
+        pipeSpace.addEventListener("mousedown", selectColor);
+    }
+    predeterminedPipes4();
+};
+
+const predeterminedPipes4 = () => {
+    document.querySelector("#pipe1").style.backgroundColor = "red";
+    document.querySelector("#pipe13").style.backgroundColor = "red";
+    document.querySelector("#pipe2").style.backgroundColor = "blue";
+    document.querySelector("#pipe14").style.backgroundColor = "blue";
+    document.querySelector("#pipe4").style.backgroundColor = "green";
+    document.querySelector("#pipe24").style.backgroundColor = "green";
+    document.querySelector("#pipe11").style.backgroundColor = "orange";
+    document.querySelector("#pipe17").style.backgroundColor = "orange";
+    document.querySelector("#pipe19").style.backgroundColor = "yellow";
+    document.querySelector("#pipe21").style.backgroundColor = "yellow";
+};
+
+
 
 // Function that selects the color of click and hold
 const selectColor = (event) => {
@@ -153,6 +194,8 @@ const selectColor = (event) => {
                     predeterminedPipes2();
                 } else if (level3 === true) {
                     predeterminedPipes3();
+                } else if (level4 === true) {
+                    predeterminedPipes4();
                 }
             }
         }
@@ -274,6 +317,34 @@ const fillInColor = (event) => {
             color = "slategray";
         }
         return;
+    } else if (
+        level4 === true &&
+        (event.target.id === "pipe1" ||
+            event.target.id === "pipe2" ||
+            event.target.id === "pipe4" ||
+            event.target.id === "pipe11" ||
+            event.target.id === "pipe13" ||
+            event.target.id === "pipe14" ||
+            event.target.id === "pipe17" ||
+            event.target.id === "pipe19" ||
+            event.target.id === "pipe21" ||
+            event.target.id === "pipe24")
+    ) {
+        if (color !== event.target.style.backgroundColor) {
+            if (color === "red") {
+                redCounter = 0;
+            } else if (color === "orange") {
+                orangeCounter = 0;
+            } else if (color === "yellow") {
+                yellowCounter = 0;
+            } else if (color === "green") {
+                greenCounter = 0;
+            } else if (color === "blue") {
+                blueCounter = 0;
+            }
+            color = "slategray";
+        }
+        return;
         // this if condition checks to see if we are overwriting a pipe that already has a color
     } else if (event.target.style.backgroundColor !== "slategray") {
         // check what color that target pipe has and store it in a variable
@@ -303,6 +374,8 @@ const fillInColor = (event) => {
                     predeterminedPipes2();
                 } else if (level3 === true) {
                     predeterminedPipes3();
+                } else if (level4 === true) {
+                    predeterminedPipes4();
                 }
             }
         }
@@ -327,6 +400,8 @@ const resetBoard = () => {
             predeterminedPipes2();
         } else if (level3 === true) {
             predeterminedPipes3();
+        } else if (level4 === true) {
+            predeterminedPipes4();
         }
     }
     resetCounter();
@@ -363,7 +438,16 @@ const winCondition = () => {
         greenCounter === 1 &&
         blueCounter === 1
     ) {
-        document.querySelector(".winning-message").innerText = "WINNER!!!";
+        const randomNumber = Math.floor(Math.random() * 4)
+        if (randomNumber === 0) {
+            document.querySelector(".winning-message").innerText = "EASY PEASY LEMON SQUEEZY!";
+        } else if (randomNumber === 1) {
+            document.querySelector(".winning-message").innerText = "LIKE STEALING CANDY FROM A BABY!";
+        } else if (randomNumber === 2) {
+            document.querySelector(".winning-message").innerText = "AS EASY AS 123!";
+        } else if (randomNumber === 3) {
+            document.querySelector(".winning-message").innerText = "WELL... THAT WAS EASY!";
+        }
         document.querySelector(".winning-message").style.color = "gold";
     }
 };
@@ -383,6 +467,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const level1 = false;
     const level2 = false;
     const level3 = false;
+    const level4 = false;
 
     document
         .querySelector(".btn-primary")
@@ -393,6 +478,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document
         .querySelector(".btn-danger")
         .addEventListener("click", generateLevelThree);
+    document
+        .querySelector(".btn-warning")
+        .addEventListener("click", generateLevelFour);
 
     document.querySelector(".btn-dark").addEventListener("click", resetBoard);
 });
@@ -403,3 +491,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // make code more dry
 // implement stretch goals
+
+// or turn a click counter into turns left counter
