@@ -5,21 +5,8 @@ const generateLevelOne = () => {
     level3 = false;
     level4 = false;
     clickCounter = 0;
-    resetCounter();
-    // if level 1 is clicked again, need to reset/clear the divs or else new squares keep being created
-    const playingField = document.querySelector(".playing-field");
-    playingField.innerText = "";
-    // this for loop creates each of the 25 pipes
-    for (let i = 1; i < 26; i++) {
-        pipeSpace = document.createElement("div");
-        pipeSpace.classList.add("pipes");
-        pipeSpace.setAttribute("id", "pipe" + i); // to give each pipe its own speicfic ID
-        pipeSpace.setAttribute("draggable", true);
-        pipeSpace.style.backgroundColor = "slategray";
-        playingField.appendChild(pipeSpace); // adding the newly created divs into the parent div
-        pipeSpace.addEventListener("mousedown", selectColor);
-    }
-    // sets the pre-determined pipe layout
+    resetAllCounters();
+    createPipesThenListen();
     predeterminedPipes1();
 };
 
@@ -43,19 +30,8 @@ const generateLevelTwo = () => {
     level3 = false;
     level4 = false;
     clickCounter = 0;
-    resetCounter();
-    const playingField = document.querySelector(".playing-field");
-    playingField.innerText = "";
-    for (let i = 1; i < 26; i++) {
-        pipeSpace = document.createElement("div");
-        pipeSpace.classList.add("pipes");
-        pipeSpace.setAttribute("id", "pipe" + i);
-        pipeSpace.setAttribute("draggable", true);
-        pipeSpace.style.backgroundColor = "slategray";
-        playingField.appendChild(pipeSpace);
-
-        pipeSpace.addEventListener("mousedown", selectColor);
-    }
+    resetAllCounters();
+    createPipesThenListen();
     predeterminedPipes2();
 };
 
@@ -79,19 +55,8 @@ const generateLevelThree = () => {
     level3 = true;
     level4 = false;
     clickCounter = 0;
-    resetCounter();
-    const playingField = document.querySelector(".playing-field");
-    playingField.innerText = "";
-    for (let i = 1; i < 26; i++) {
-        pipeSpace = document.createElement("div");
-        pipeSpace.classList.add("pipes");
-        pipeSpace.setAttribute("id", "pipe" + i);
-        pipeSpace.setAttribute("draggable", true);
-        pipeSpace.style.backgroundColor = "slategray";
-        playingField.appendChild(pipeSpace);
-
-        pipeSpace.addEventListener("mousedown", selectColor);
-    }
+    resetAllCounters();
+    createPipesThenListen();
     predeterminedPipes3();
 };
 
@@ -115,19 +80,8 @@ const generateLevelFour = () => {
     level3 = false;
     level4 = true;
     clickCounter = 0;
-    resetCounter();
-    const playingField = document.querySelector(".playing-field");
-    playingField.innerText = "";
-    for (let i = 1; i < 26; i++) {
-        pipeSpace = document.createElement("div");
-        pipeSpace.classList.add("pipes");
-        pipeSpace.setAttribute("id", "pipe" + i);
-        pipeSpace.setAttribute("draggable", true);
-        pipeSpace.style.backgroundColor = "slategray";
-        playingField.appendChild(pipeSpace);
-
-        pipeSpace.addEventListener("mousedown", selectColor);
-    }
+    resetAllCounters();
+    createPipesThenListen();
     predeterminedPipes4();
 };
 
@@ -144,18 +98,56 @@ const predeterminedPipes4 = () => {
     document.querySelector("#pipe21").style.backgroundColor = "yellow";
 };
 
+// Resets color counters and click counter
+const resetAllCounters = () => {
+    redCounter = 0;
+    orangeCounter = 0;
+    yellowCounter = 0;
+    greenCounter = 0;
+    blueCounter = 0;
+    clickCounter = 0;
+    document.querySelector("#click-count").innerText = clickCounter;
+};
 
+// Reset the counter of a specific color
+const resetSpecificColorCounter = () => {
+    if (color === "red") {
+        redCounter = 0;
+    } else if (color === "orange") {
+        orangeCounter = 0;
+    } else if (color === "yellow") {
+        yellowCounter = 0;
+    } else if (color === "green") {
+        greenCounter = 0;
+    } else if (color === "blue") {
+        blueCounter = 0;
+    }
+}
 
-// Function that selects the color of click and hold
-const selectColor = (event) => {
+const createPipesThenListen = () => {
+    const playingField = document.querySelector(".playing-field");
+    playingField.innerText = ""; // this clears the field to make space for new pipes
+    // this for loop creates each of the 25 pipes
+    for (let i = 1; i < 26; i++) {
+        pipeSpace = document.createElement("div");
+        pipeSpace.classList.add("pipes");
+        pipeSpace.setAttribute("id", "pipe" + i); // to give each pipe its own speicfic ID
+        pipeSpace.setAttribute("draggable", true);
+        pipeSpace.style.backgroundColor = "slategray";
+        playingField.appendChild(pipeSpace); // adding the newly created divs into the parent div
+        pipeSpace.addEventListener("mousedown", calculateAndColor); // mousedown event needs to be inside this loop
+    }
+};
+
+// This function calculates the number of clicks made on each color,
+// stores the clicked color into a variable, and uses that stored color to color the pipes
+const calculateAndColor = (event) => {
     clickCounter++;
     document.querySelector("#click-count").innerText = clickCounter;
-
-    // the color of the click event is stored here
-    color = event.target.style.backgroundColor;
-    console.log(color);
+    color = event.target.style.backgroundColor; // mousedown event color stored here
+    // console.log(color);
     // we need to add a color pick counter and limit the count to just 1
-    // or else we can just click and color multiple pipes of the same color and make winning easy
+    // or else we can create multiple pipe paths of the same color
     if (color === "red") {
         redCounter++;
     } else if (color === "orange") {
@@ -167,27 +159,16 @@ const selectColor = (event) => {
     } else if (color === "blue") {
         blueCounter++;
     }
-    console.log(
-        redCounter,
-        orangeCounter,
-        yellowCounter,
-        greenCounter,
-        blueCounter
-    );
+    console.log("initial click", redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
 
-    if (
-        redCounter >= 2 ||
-        orangeCounter >= 2 ||
-        yellowCounter >= 2 ||
-        greenCounter >= 2 ||
-        blueCounter >= 2
-    ) {
-        // for loop to go through all squares with that color you've clicked and change them back to slategray
-        const allPipes = document.querySelectorAll(".pipes");
-        const arrayOfAllPipes = Array.from(allPipes);
+    if (redCounter >= 2 || orangeCounter >= 2 || yellowCounter >= 2 || greenCounter >= 2 || blueCounter >= 2) {
+        // if the counter goes up to 2, all squares of that color you've clicked on will revert back to slategray
+        const allPipes = document.querySelectorAll(".pipes"); // nodes list of all pipes
+        const arrayOfAllPipes = Array.from(allPipes); // takes the node list and turns it into an array
         for (let i = 0; i < arrayOfAllPipes.length; i++) {
             if (arrayOfAllPipes[i].style.backgroundColor === color) {
                 arrayOfAllPipes[i].style.backgroundColor = "slategray";
+                // this is needed to repaint the original pipes that were changed to slategray above
                 if (level1 === true) {
                     predeterminedPipes1();
                 } else if (level2 === true) {
@@ -199,27 +180,12 @@ const selectColor = (event) => {
                 }
             }
         }
-        if (color === "red") {
-            redCounter = 0;
-        } else if (color === "orange") {
-            orangeCounter = 0;
-        } else if (color === "yellow") {
-            yellowCounter = 0;
-        } else if (color === "green") {
-            greenCounter = 0;
-        } else if (color === "blue") {
-            blueCounter = 0;
-        }
+        // this resets the target color's counter back to 0 from 2
+        resetSpecificColorCounter();
+        // this prevents you from painting any pipe because it is the second click
+        color = 'slategray';
     }
-
-    console.log(
-        redCounter,
-        orangeCounter,
-        yellowCounter,
-        greenCounter,
-        blueCounter
-    );
-
+    // when we drag our colored box/pipe into another div/pipe, fire the fillInColor function
     const allPipes = document.querySelectorAll(".pipes"); // nodes list of all pipes
     const arrayOfAllPipes = Array.from(allPipes); // takes the node list and turns it into an array
     for (let i = 0; i < arrayOfAllPipes.length; i++) {
@@ -247,17 +213,6 @@ const fillInColor = (event) => {
             event.target.id === "pipe17")
     ) {
         if (color !== event.target.style.backgroundColor) {
-            if (color === "red") {
-                redCounter = 0;
-            } else if (color === "orange") {
-                orangeCounter = 0;
-            } else if (color === "yellow") {
-                yellowCounter = 0;
-            } else if (color === "green") {
-                greenCounter = 0;
-            } else if (color === "blue") {
-                blueCounter = 0;
-            }
             color = "slategray";
         }
         return;
@@ -275,17 +230,7 @@ const fillInColor = (event) => {
             event.target.id === "pipe24")
     ) {
         if (color !== event.target.style.backgroundColor) {
-            if (color === "red") {
-                redCounter = 0;
-            } else if (color === "orange") {
-                orangeCounter = 0;
-            } else if (color === "yellow") {
-                yellowCounter = 0;
-            } else if (color === "green") {
-                greenCounter = 0;
-            } else if (color === "blue") {
-                blueCounter = 0;
-            }
+            // resetSpecificColorCounter();
             color = "slategray";
         }
         return;
@@ -303,17 +248,7 @@ const fillInColor = (event) => {
             event.target.id === "pipe24")
     ) {
         if (color !== event.target.style.backgroundColor) {
-            if (color === "red") {
-                redCounter = 0;
-            } else if (color === "orange") {
-                orangeCounter = 0;
-            } else if (color === "yellow") {
-                yellowCounter = 0;
-            } else if (color === "green") {
-                greenCounter = 0;
-            } else if (color === "blue") {
-                blueCounter = 0;
-            }
+            // resetSpecificColorCounter();
             color = "slategray";
         }
         return;
@@ -331,17 +266,7 @@ const fillInColor = (event) => {
             event.target.id === "pipe24")
     ) {
         if (color !== event.target.style.backgroundColor) {
-            if (color === "red") {
-                redCounter = 0;
-            } else if (color === "orange") {
-                orangeCounter = 0;
-            } else if (color === "yellow") {
-                yellowCounter = 0;
-            } else if (color === "green") {
-                greenCounter = 0;
-            } else if (color === "blue") {
-                blueCounter = 0;
-            }
+            // resetSpecificColorCounter();
             color = "slategray";
         }
         return;
@@ -383,7 +308,7 @@ const fillInColor = (event) => {
     } else if (event.target.style.backgroundColor === "slategray") {
         event.target.style.backgroundColor = color;
     }
-    // checks win condition each time a box is colored in
+    // checks win condition each time a pipe is colored in
     winCondition();
 };
 
@@ -393,7 +318,7 @@ const resetBoard = () => {
         // styles every spot to slategray
         document.querySelectorAll(".pipes")[i].style.backgroundColor =
             "slategray";
-        // and then it changes the fixed pipe positions back to their original color
+        // and then it changes the fixed pipe positions back to their original color depending on level
         if (level1 === true) {
             predeterminedPipes1();
         } else if (level2 === true) {
@@ -404,18 +329,8 @@ const resetBoard = () => {
             predeterminedPipes4();
         }
     }
-    resetCounter();
+    resetAllCounters();
     document.querySelector(".winning-message").innerText = "";
-};
-
-const resetCounter = () => {
-    redCounter = 0;
-    orangeCounter = 0;
-    yellowCounter = 0;
-    greenCounter = 0;
-    blueCounter = 0;
-    clickCounter = 0;
-    document.querySelector("#click-count").innerText = clickCounter;
 };
 
 const winCondition = () => {
@@ -423,39 +338,42 @@ const winCondition = () => {
     // if these conditions are met, then you win!
     const allPipes = document.querySelectorAll(".pipes");
     const arrayOfAllPipes = Array.from(allPipes);
-    let isGray = false;
+    let graySpacesLeft = false;
     for (let i = 0; i < arrayOfAllPipes.length; i++) {
         if (arrayOfAllPipes[i].style.backgroundColor === "slategray") {
-            isGray = true;
+            graySpacesLeft = true;
             break;
         }
     }
     if (
-        !isGray &&
+        graySpacesLeft === false &&
         redCounter === 1 &&
         orangeCounter === 1 &&
         yellowCounter === 1 &&
         greenCounter === 1 &&
         blueCounter === 1
     ) {
-        const randomNumber = Math.floor(Math.random() * 4)
+        const randomNumber = Math.floor(Math.random() * 4);
         if (randomNumber === 0) {
-            document.querySelector(".winning-message").innerText = "EASY PEASY LEMON SQUEEZY!";
+            document.querySelector(".winning-message").innerText =
+                "EASY PEASY LEMON SQUEEZY!";
         } else if (randomNumber === 1) {
-            document.querySelector(".winning-message").innerText = "LIKE STEALING CANDY FROM A BABY!";
+            document.querySelector(".winning-message").innerText =
+                "LIKE STEALING CANDY FROM A BABY!";
         } else if (randomNumber === 2) {
-            document.querySelector(".winning-message").innerText = "AS EASY AS 123!";
+            document.querySelector(".winning-message").innerText =
+                "AS EASY AS 123!";
         } else if (randomNumber === 3) {
-            document.querySelector(".winning-message").innerText = "WELL... THAT WAS EASY!";
+            document.querySelector(".winning-message").innerText =
+                "WELL... THAT WAS EASY!";
         }
         document.querySelector(".winning-message").style.color = "gold";
     }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    // defining pipeSpace and color for use in all scope levels
-    const pipeSpace = "";
-    const color = "slategray";
+    const pipeSpace = "divs/pipes to be made";
+    const color = "slategray"; // this will hold the color that was clicked on
 
     const clickCounter = 0;
     const redCounter = 0;
@@ -484,12 +402,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".btn-dark").addEventListener("click", resetBoard);
 });
-
-
-
-// add code to add functionality for smaller screens
-
-// make code more dry
-// implement stretch goals
-
-// or turn a click counter into turns left counter
