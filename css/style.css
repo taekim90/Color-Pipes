@@ -32,8 +32,8 @@ h1 {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    height: 37vw;
-    width: 37vw;
+    height: 35vw;
+    width: 35vw;
     justify-content: space-evenly;
     align-items: center;
 }
@@ -46,8 +46,8 @@ h1 {
 
 .pipes {
     border: .5vh solid black;
-    width: 6.9vw;
-    height: 6.9vw;
+    width: 6.5vw;
+    height: 6.5vw;
     cursor: grab;
 }
 
@@ -57,8 +57,7 @@ h1 {
     margin: 2vh
 }
 
-
-@media screen and (max-width: 925px) {
+@media screen and (max-width: 1225px) {
     .playing-field {
         height: 50vw;
         width: 50vw;
