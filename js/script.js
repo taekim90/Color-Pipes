@@ -21,6 +21,16 @@ const predeterminedPipes1 = () => {
     document.querySelector("#pipe21").style.backgroundColor = "green";
     document.querySelector("#pipe13").style.backgroundColor = "blue";
     document.querySelector("#pipe17").style.backgroundColor = "blue";
+    document.querySelector("#pipe1").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe4").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe5").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe22").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe20").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe24").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe9").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe21").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe13").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe17").style.backgroundImage = "url('img/pipes.png')";
 };
 
 const generateLevelTwo = () => {
@@ -46,6 +56,16 @@ const predeterminedPipes2 = () => {
     document.querySelector("#pipe23").style.backgroundColor = "green";
     document.querySelector("#pipe19").style.backgroundColor = "blue";
     document.querySelector("#pipe24").style.backgroundColor = "blue";
+    document.querySelector("#pipe1").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe17").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe2").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe9").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe3").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe18").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe16").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe23").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe19").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe24").style.backgroundImage = "url('img/pipes.png')";
 };
 
 const generateLevelThree = () => {
@@ -71,6 +91,16 @@ const predeterminedPipes3 = () => {
     document.querySelector("#pipe17").style.backgroundColor = "orange";
     document.querySelector("#pipe10").style.backgroundColor = "yellow";
     document.querySelector("#pipe24").style.backgroundColor = "yellow";
+    document.querySelector("#pipe1").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe6").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe5").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe13").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe12").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe23").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe9").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe17").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe10").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe24").style.backgroundImage = "url('img/pipes.png')";
 };
 
 const generateLevelFour = () => {
@@ -96,6 +126,18 @@ const predeterminedPipes4 = () => {
     document.querySelector("#pipe17").style.backgroundColor = "orange";
     document.querySelector("#pipe19").style.backgroundColor = "yellow";
     document.querySelector("#pipe21").style.backgroundColor = "yellow";
+    document.querySelector("#pipe1").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe13").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe2").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe14").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe4").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe24").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe11").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe17").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe19").style.backgroundImage = "url('img/pipes.png')";
+    document.querySelector("#pipe21").style.backgroundImage = "url('img/pipes.png')";
+    
+
 };
 
 // Resets color counters and click counter
@@ -387,3 +429,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".btn-dark").addEventListener("click", resetBoard);
 });
+
+

@@ -49,6 +49,8 @@ h1 {
     width: 6.5vw;
     height: 6.5vw;
     cursor: grab;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .reset {
@@ -56,6 +58,7 @@ h1 {
     justify-content: center;
     margin: 2vh
 }
+
 
 @media screen and (max-width: 1225px) {
     .playing-field {
