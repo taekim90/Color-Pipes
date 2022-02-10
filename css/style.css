@@ -60,7 +60,7 @@ h1 {
 }
 
 
-@media screen and (max-width: 1225px) {
+@media screen and (max-width: 1400px) {
     .playing-field {
         height: 50vw;
         width: 50vw;

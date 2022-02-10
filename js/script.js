@@ -136,9 +136,8 @@ const predeterminedPipes4 = () => {
     document.querySelector("#pipe17").style.backgroundImage = "url('img/pipes.png')";
     document.querySelector("#pipe19").style.backgroundImage = "url('img/pipes.png')";
     document.querySelector("#pipe21").style.backgroundImage = "url('img/pipes.png')";
-    
-
 };
+
 
 // Resets color counters and click counter
 const resetAllCounters = () => {
@@ -150,6 +149,7 @@ const resetAllCounters = () => {
     clickCounter = 0;
     document.querySelector("#click-count").innerText = clickCounter;
 };
+
 
 // Reset the counter of a specific color
 const resetSpecificColorCounter = () => {
@@ -166,6 +166,8 @@ const resetSpecificColorCounter = () => {
     }
 }
 
+
+// This function creates the initial pipes for each level and then listens for mousedown
 const createPipesThenListen = () => {
     const playingField = document.querySelector(".playing-field");
     playingField.innerText = ""; // this clears the field to make space for new pipes
@@ -181,14 +183,13 @@ const createPipesThenListen = () => {
     }
 };
 
-// This function calculates the number of clicks made on each color,
-// stores the clicked color into a variable, and uses that stored color to color the pipes
+
+// This function calculates the number of clicks made on each color, then stores
+// the clicked color into a variable, and uses that stored color to color the pipes
 const calculateAndColor = (event) => {
     clickCounter++;
     document.querySelector("#click-count").innerText = clickCounter;
     color = event.target.style.backgroundColor; // mousedown event color stored here
-    // we need to add a color pick counter and limit the count to just 1
-    // or else we can create multiple pipe paths of the same color
     if (color === "red") {
         redCounter++;
     } else if (color === "orange") {
@@ -200,8 +201,7 @@ const calculateAndColor = (event) => {
     } else if (color === "blue") {
         blueCounter++;
     }
-    console.log("initial click", redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
-
+    console.log('initial click ', redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
     if (redCounter >= 2 || orangeCounter >= 2 || yellowCounter >= 2 || greenCounter >= 2 || blueCounter >= 2) {
         // if the counter goes up to 2, all squares of that color you've clicked on will revert back to slategray
         const allPipes = document.querySelectorAll(".pipes"); // nodes list of all pipes
@@ -221,8 +221,11 @@ const calculateAndColor = (event) => {
                 }
             }
         }
+        console.log('after counter goes to 2 before reset', redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
         // this resets the target color's counter back to 0 from 2
         resetSpecificColorCounter();
+        console.log('after reset', redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
+
         // this prevents you from painting any pipe because it is the second click
         color = 'slategray';
     }
@@ -396,7 +399,7 @@ const winCondition = () => {
         if (randomNumber === 0) {
             document.querySelector(".winning-message").innerText = "EASY PEASY LEMON SQUEEZY!";
         } else if (randomNumber === 1) {
-            document.querySelector(".winning-message").innerText = "LIKE STEALING CANDY FROM A BABY!";
+            document.querySelector(".winning-message").innerText = "LIKE TAKING CANDY FROM A BABY!";
         } else if (randomNumber === 2) {
             document.querySelector(".winning-message").innerText = "AS EASY AS 123!";
         } else if (randomNumber === 3) {
@@ -408,7 +411,7 @@ const winCondition = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const pipeSpace = "divs/pipes to be made";
-    const color = "slategray"; // this will hold the color that was clicked on
+    const color = "slategray"; // this will hold the click color
 
     const clickCounter = 0;
     const redCounter = 0;
@@ -429,5 +432,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".btn-dark").addEventListener("click", resetBoard);
 });
-
 
