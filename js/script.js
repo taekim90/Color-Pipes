@@ -179,10 +179,14 @@ const createPipesThenListen = () => {
         pipeSpace.setAttribute("draggable", true);
         pipeSpace.style.backgroundColor = "slategray";
         playingField.appendChild(pipeSpace); // adding the newly created divs into the parent div
+        pipeSpace.addEventListener('mousedown', () => {
+            const audio = document.querySelector("audio");
+            audio.volume = 0.15;
+            audio.play();
+        });
         pipeSpace.addEventListener("mousedown", calculateAndColor); // mousedown event needs to be inside this loop
     }
 };
-
 
 // This function calculates the number of clicks made on each color, then stores
 // the clicked color into a variable, and uses that stored color to color the pipes
@@ -406,6 +410,7 @@ const winCondition = () => {
             document.querySelector(".winning-message").innerText = "WELL... THAT WAS EASY!";
         }
         document.querySelector(".winning-message").style.color = "gold";
+        color = "slategray"; // prevents you from continuing to create/overwrite with the current held color once you win
     }
 };
 

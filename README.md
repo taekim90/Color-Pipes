@@ -20,20 +20,19 @@ In order to win, the player needs to color in every space on the grid and all of
 - Bootstrap
 
 ## MVP Checklist
-- A functional working game board that adjusts to the window size.
-- Clicking and holding on the starting pipe will select that color and paint the created path with that held color
-- Colors change appropriately when selecting a different colored pipe
-- Intersecting a previously drawn pipe will cause that previous pipe to be replaced
-- Clicking on the same color for the second time will delete a previously drawn pipe of that respective color if it exists. 
-- Clicking a color for the second time will also prevent you from creating a pipe of that color. This is to prevent the ability create multiple pipe paths of the same color. The internal click counter will then be reset once you let go of the second click, allowing a pipe to be created again.
-- Game recognizes when the winning condition occurs/puzzle completed (all pipes are connected accordingly and all spaces on the board are colored)
-- Clicking on the different level buttons changes the board layout/placement of starting pipes
-- There is no losing condition but there is a reset button to clear the drawn pipes and bring the click counter back to 0
+- [x] A functional working game board that adjusts to the window size.
+- [x] Clicking and holding on the starting pipe will select that color and paint the created path with that held color
+- [x] Colors change appropriately when selecting a different colored pipe
+- [x] Intersecting a previously drawn pipe will cause that previous pipe to be replaced
+- [x] Clicking on the same color for the second time will delete a previously drawn pipe of that respective color if it exists. 
+- [x] Clicking a color for the second time will also prevent you from creating a pipe of that color. This is to prevent the ability create multiple pipe paths of the same color. The internal click counter will then be reset once you let go of the second click, allowing a pipe to be created again.
+- [x] Game recognizes when the winning condition occurs/puzzle completed (all pipes are connected accordingly and all spaces on the board are colored)
+- [x] Clicking on the different level buttons changes the board layout/placement of starting pipes
+- [x] There is no losing condition but there is a reset button to clear the drawn pipes and bring the click counter back to 0
 
 ## Stretch Goals
 - [x] Add number of turns taken
 - [x] Add additional levels
-- [ ] Add sounds when clicking
 - [ ] larger boards with additional numbers of colors per board
 - [ ] Throw in random barriers (ie. rocks)
 

@@ -14,7 +14,6 @@ h1 {
 
 .buttons, .winning-message {
     display: flex;
-    /* justify-content: space-evenly; */
     justify-content: center;
     margin: 1vh
 }
@@ -24,7 +23,7 @@ h1 {
     justify-content: center;
     font-family: 'Bangers', cursive;
     font-size: 3vh;
-    margin: 1vh;
+    margin: .5vh;
 }
 
 .playing-field {
@@ -53,12 +52,11 @@ h1 {
     background-repeat: no-repeat;
 }
 
-.reset {
+.bottom {
     display: flex;
     justify-content: center;
-    margin: 2vh
+    margin: .5vh
 }
-
 
 @media screen and (max-width: 1400px) {
     .playing-field {
