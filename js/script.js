@@ -179,14 +179,10 @@ const createPipesThenListen = () => {
         pipeSpace.setAttribute("draggable", true);
         pipeSpace.style.backgroundColor = "slategray";
         playingField.appendChild(pipeSpace); // adding the newly created divs into the parent div
-        pipeSpace.addEventListener('mousedown', () => {
-            const audio = document.querySelector("audio");
-            audio.volume = 0.15;
-            audio.play();
-        });
         pipeSpace.addEventListener("mousedown", calculateAndColor); // mousedown event needs to be inside this loop
     }
 };
+
 
 // This function calculates the number of clicks made on each color, then stores
 // the clicked color into a variable, and uses that stored color to color the pipes
@@ -225,11 +221,8 @@ const calculateAndColor = (event) => {
                 }
             }
         }
-        console.log('after counter goes to 2 before reset', redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
-        // this resets the target color's counter back to 0 from 2
+        // this resets the target color's counter from 2 back to 0
         resetSpecificColorCounter();
-        console.log('after reset', redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
-
         // this prevents you from painting any pipe because it is the second click
         color = 'slategray';
     }
