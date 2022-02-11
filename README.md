@@ -1,7 +1,7 @@
 # **Color Pipes**
 
 ## **How The Game Works:**
-TLDR: CONNECT THE COLORED PIPES
+**TLDR: Connect the colored pipes**
 
 This is a game in which the player needs to connect the pipes by matching one end of the pipe to another. The initial/end pipe locations have already been designated. 
 
@@ -11,10 +11,10 @@ It is the player's task to connect the color pipes accordingly without intersect
 
 In order to win, the player needs to color in every space on the grid and all of the pre-set starting pipes need to be connected by their respective colors.
 
-## Wireframe / Planning Process
+## **Wireframe / Planning Process**
 <img src="./img/wireframe.png" alt="wireframe" width="300"/>
 
-## Screenshot of Completed Game
+## **Screenshot of Completed Game**
 ![](./img/firstproject.png)
 
 ## **Tech Being Used**
@@ -39,6 +39,31 @@ In order to win, the player needs to color in every space on the grid and all of
 - [x] Add additional levels
 - [ ] larger boards with additional numbers of colors per board
 - [ ] Throw in random barriers (ie. rocks)
+
+## **Code Highlights**
+```javascript
+const createPipesThenListen = () => {
+    const playingField = document.querySelector(".playing-field");
+    playingField.innerText = "";
+    for (let i = 1; i < 26; i++) {
+        pipeSpace = document.createElement("div");
+        pipeSpace.classList.add("pipes");
+        pipeSpace.setAttribute("id", "pipe" + i);
+        pipeSpace.setAttribute("draggable", true);
+        pipeSpace.style.backgroundColor = "slategray";
+        playingField.appendChild(pipeSpace);
+        pipeSpace.addEventListener("mousedown", calculateClicksThenListen);
+    }
+};
+```
+```javascript
+    const allPipes = document.querySelectorAll(".pipes");
+    const arrayOfAllPipes = Array.from(allPipes);
+    for (let i = 0; i < arrayOfAllPipes.length; i++) {
+        arrayOfAllPipes[i].addEventListener("dragenter", fillInColor);
+    }
+};
+```
 
 ## **Resources**
 - https://www.w3schools.com/jsref/event_onmousedown.asp

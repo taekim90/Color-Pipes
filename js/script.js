@@ -9,7 +9,7 @@ const generateLevelOne = () => {
     createPipesThenListen();
     predeterminedPipes1();
 };
-
+// sets the predetermined pipe locations, gives them colors, and an image
 const predeterminedPipes1 = () => {
     document.querySelector("#pipe1").style.backgroundColor = "red";
     document.querySelector("#pipe4").style.backgroundColor = "red";
@@ -139,7 +139,7 @@ const predeterminedPipes4 = () => {
 };
 
 
-// Resets color counters and click counter
+// Function that resets the color counters and click counter
 const resetAllCounters = () => {
     redCounter = 0;
     orangeCounter = 0;
@@ -150,21 +150,6 @@ const resetAllCounters = () => {
     document.querySelector("#click-count").innerText = clickCounter;
 };
 
-
-// Reset the counter of a specific color
-const resetSpecificColorCounter = () => {
-    if (color === "red") {
-        redCounter = 0;
-    } else if (color === "orange") {
-        orangeCounter = 0;
-    } else if (color === "yellow") {
-        yellowCounter = 0;
-    } else if (color === "green") {
-        greenCounter = 0;
-    } else if (color === "blue") {
-        blueCounter = 0;
-    }
-};
 
 // This function creates the initial pipes for each level and then listens for mousedown
 const createPipesThenListen = () => {
@@ -177,27 +162,27 @@ const createPipesThenListen = () => {
         pipeSpace.setAttribute("id", "pipe" + i); // to give each pipe its own speicfic ID
         pipeSpace.setAttribute("draggable", true);
         pipeSpace.style.backgroundColor = "slategray";
-        playingField.appendChild(pipeSpace); // adding the newly created divs into the parent div
-        pipeSpace.addEventListener("mousedown", calculateAndColor); // mousedown event needs to be inside this loop
+        playingField.appendChild(pipeSpace);
+        pipeSpace.addEventListener("mousedown", calculateClicksThenListen); // mousedown event needs to be inside this loop
     }
 };
 
 
 // This function calculates the number of clicks made on each color, then stores
 // the clicked color into a variable, and uses that stored color to color the pipes
-const calculateAndColor = (event) => {
+const calculateClicksThenListen = (event) => {
     clickCounter++;
     document.querySelector("#click-count").innerText = clickCounter;
-    color = event.target.style.backgroundColor; // mousedown event color stored here
-    if (color === "red") {
+    heldColor = event.target.style.backgroundColor; // mousedown event color stored here
+    if (heldColor === "red") {
         redCounter++;
-    } else if (color === "orange") {
+    } else if (heldColor === "orange") {
         orangeCounter++;
-    } else if (color === "yellow") {
+    } else if (heldColor === "yellow") {
         yellowCounter++;
-    } else if (color === "green") {
+    } else if (heldColor === "green") {
         greenCounter++;
-    } else if (color === "blue") {
+    } else if (heldColor === "blue") {
         blueCounter++;
     }
     // console.log("click ", redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter);
@@ -206,7 +191,7 @@ const calculateAndColor = (event) => {
         const allPipes = document.querySelectorAll(".pipes"); // nodes list of all pipes
         const arrayOfAllPipes = Array.from(allPipes); // takes the node list and turns it into an array
         for (let i = 0; i < arrayOfAllPipes.length; i++) {
-            if (arrayOfAllPipes[i].style.backgroundColor === color) {
+            if (arrayOfAllPipes[i].style.backgroundColor === heldColor) {
                 arrayOfAllPipes[i].style.backgroundColor = "slategray";
                 // this is needed to repaint the original pipes that were changed to slategray above
                 if (level1 === true) {
@@ -220,9 +205,20 @@ const calculateAndColor = (event) => {
                 }
             }
         }
-        resetSpecificColorCounter();
+        // reset the counter of a specific color
+        if (heldColor === "red") {
+            redCounter = 0;
+        } else if (heldColor === "orange") {
+            orangeCounter = 0;
+        } else if (heldColor === "yellow") {
+            yellowCounter = 0;
+        } else if (heldColor === "green") {
+            greenCounter = 0;
+        } else if (heldColor === "blue") {
+            blueCounter = 0;
+        }
         // this prevents you from painting any pipe because it is the second click
-        color = "slategray";
+        heldColor = "slategray";
     }
     // when we drag our colored box/pipe into another div/pipe, fire the fillInColor function
     const allPipes = document.querySelectorAll(".pipes"); // nodes list of all pipes
@@ -235,7 +231,7 @@ const calculateAndColor = (event) => {
 
 const fillInColor = (event) => {
     // this prevents us from painting gray everywhere
-    if (color === "slategray") {
+    if (heldColor === "slategray") {
         return;
     }
     // this prevents the original predetermined pipes from being colored over
@@ -253,8 +249,8 @@ const fillInColor = (event) => {
             event.target.id === "pipe13" ||
             event.target.id === "pipe17")
     ) {
-        if (color !== event.target.style.backgroundColor) {
-            color = "slategray";
+        if (heldColor !== event.target.style.backgroundColor) {
+            heldColor = "slategray";
         }
         return;
     } else if (
@@ -270,8 +266,8 @@ const fillInColor = (event) => {
             event.target.id === "pipe19" ||
             event.target.id === "pipe24")
     ) {
-        if (color !== event.target.style.backgroundColor) {
-            color = "slategray";
+        if (heldColor !== event.target.style.backgroundColor) {
+            heldColor = "slategray";
         }
         return;
     } else if (
@@ -287,8 +283,8 @@ const fillInColor = (event) => {
             event.target.id === "pipe10" ||
             event.target.id === "pipe24")
     ) {
-        if (color !== event.target.style.backgroundColor) {
-            color = "slategray";
+        if (heldColor !== event.target.style.backgroundColor) {
+            heldColor = "slategray";
         }
         return;
     } else if (
@@ -304,8 +300,8 @@ const fillInColor = (event) => {
             event.target.id === "pipe21" ||
             event.target.id === "pipe24")
     ) {
-        if (color !== event.target.style.backgroundColor) {
-            color = "slategray";
+        if (heldColor !== event.target.style.backgroundColor) {
+            heldColor = "slategray";
         }
         return;
         // this if condition checks to see if we are overwriting a pipe that already has a color
@@ -330,7 +326,7 @@ const fillInColor = (event) => {
             if (arrayOfAllPipes[i].style.backgroundColor === overwrittenColor) {
                 arrayOfAllPipes[i].style.backgroundColor = "slategray";
                 // without this next code, the first space you start coloring in will be gray before switching to the selected color
-                event.target.style.backgroundColor = color;
+                event.target.style.backgroundColor = heldColor;
                 if (level1 === true) {
                     predeterminedPipes1();
                 } else if (level2 === true) {
@@ -344,7 +340,7 @@ const fillInColor = (event) => {
         }
         // if a pipe is gray, we are allowed to paint in the selected color
     } else if (event.target.style.backgroundColor === "slategray") {
-        event.target.style.backgroundColor = color;
+        event.target.style.backgroundColor = heldColor;
     }
     // checks win condition each time a pipe is colored in
     winCondition();
@@ -426,13 +422,13 @@ const winCondition = () => {
         document.querySelector(".winning-message").innerText = "WELL... THAT WAS EASY!";
     }
     document.querySelector(".winning-message").style.color = "gold";
-    color = "slategray"; // prevents you from continuing to create/overwrite with the current held color once you win
+    heldColor = "slategray"; // prevents you from continuing to create/overwrite with the current held color once you win
 };
 
 
 document.addEventListener("DOMContentLoaded", () => {
     const pipeSpace = "divs/pipes to be made";
-    const color = "slategray"; // this will hold the click color
+    const heldColor = "slategray"; // this will hold the click color
 
     const clickCounter = 0;
     const redCounter = 0;
