@@ -164,8 +164,7 @@ const resetSpecificColorCounter = () => {
     } else if (color === "blue") {
         blueCounter = 0;
     }
-}
-
+};
 
 // This function creates the initial pipes for each level and then listens for mousedown
 const createPipesThenListen = () => {
@@ -201,7 +200,7 @@ const calculateAndColor = (event) => {
     } else if (color === "blue") {
         blueCounter++;
     }
-    console.log('initial click ', redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter)
+    // console.log("click ", redCounter, orangeCounter, yellowCounter, greenCounter, blueCounter);
     if (redCounter >= 2 || orangeCounter >= 2 || yellowCounter >= 2 || greenCounter >= 2 || blueCounter >= 2) {
         // if the counter goes up to 2, all squares of that color you've clicked on will revert back to slategray
         const allPipes = document.querySelectorAll(".pipes"); // nodes list of all pipes
@@ -221,10 +220,9 @@ const calculateAndColor = (event) => {
                 }
             }
         }
-        // this resets the target color's counter from 2 back to 0
         resetSpecificColorCounter();
         // this prevents you from painting any pipe because it is the second click
-        color = 'slategray';
+        color = "slategray";
     }
     // when we drag our colored box/pipe into another div/pipe, fire the fillInColor function
     const allPipes = document.querySelectorAll(".pipes"); // nodes list of all pipes
@@ -233,6 +231,7 @@ const calculateAndColor = (event) => {
         arrayOfAllPipes[i].addEventListener("dragenter", fillInColor);
     }
 };
+
 
 const fillInColor = (event) => {
     // this prevents us from painting gray everywhere
@@ -309,7 +308,7 @@ const fillInColor = (event) => {
             color = "slategray";
         }
         return;
-    // this if condition checks to see if we are overwriting a pipe that already has a color
+        // this if condition checks to see if we are overwriting a pipe that already has a color
     } else if (event.target.style.backgroundColor !== "slategray") {
         // check what color that target pipe has and store it in a variable
         const overwrittenColor = event.target.style.backgroundColor;
@@ -355,8 +354,7 @@ const fillInColor = (event) => {
 const resetBoard = () => {
     for (let i = 0; i < 25; i++) {
         // styles every spot to slategray
-        document.querySelectorAll(".pipes")[i].style.backgroundColor =
-            "slategray";
+        document.querySelectorAll(".pipes")[i].style.backgroundColor = "slategray";
         // and then it changes the fixed pipe positions back to their original color depending on level
         if (level1 === true) {
             predeterminedPipes1();
@@ -372,40 +370,65 @@ const resetBoard = () => {
     document.querySelector(".winning-message").innerText = "";
 };
 
-// this function runs each type a pipe is colored in to check if win conditions are met
+
+// this function goes through the appropriate array, depending on the current level, 
+// and then checks to see if the background colors match
 const winCondition = () => {
-    // if all spaces are no longer gray, then check to see if the color counter = 1 for each color.
     const allPipes = document.querySelectorAll(".pipes");
     const arrayOfAllPipes = Array.from(allPipes);
-    let graySpacesLeft = false;
+    let answerArray = [];
+    if (level1 === true) {
+        answerArray = [
+            "red", "red", "red", "red", "orange",
+            "green", "green", "green", "green", "orange",
+            "green", "blue", "blue", "orange", "orange",
+            "green", "blue", "orange", "orange", "yellow",
+            "green", "orange", "orange", "yellow", "yellow"
+        ];
+    } else if (level2 === true) {
+        answerArray = [
+            "red", "orange", "yellow", "yellow", "yellow",
+            "red", "orange", "orange", "orange", "yellow",
+            "red", "red", "yellow", "yellow", "yellow", 
+            "green", "red", "yellow", "blue", "blue",
+            "green", "green", "green", "blue", "blue"
+        ]
+    } else if (level3 === true) {
+        answerArray = [
+            "red", "red", "blue", "blue", "blue",
+            "red", "red", "blue", "orange", "yellow",
+            "green", "green", "blue", "orange", "yellow",
+            "green", "orange", "orange", "orange", "yellow",
+            "green", "green", "green", "yellow", "yellow"
+        ]
+    } else if (level4 === true) {
+        answerArray = [
+            "red", "blue", "blue", "green", "green",
+            "red", "red", "blue", "blue", "green",
+            "orange", "red", "red", "blue", "green",
+            "orange", "orange", "yellow", "yellow", "green",
+            "yellow", "yellow", "yellow", "green", "green"
+        ]
+    }
     for (let i = 0; i < arrayOfAllPipes.length; i++) {
-        if (arrayOfAllPipes[i].style.backgroundColor === "slategray") {
-            graySpacesLeft = true;
-            break;
+        if (arrayOfAllPipes[i].style.backgroundColor !== answerArray[i]) {
+            return false;
         }
     }
-    if (
-        graySpacesLeft === false &&
-        redCounter === 1 &&
-        orangeCounter === 1 &&
-        yellowCounter === 1 &&
-        greenCounter === 1 &&
-        blueCounter === 1
-    ) {
-        const randomNumber = Math.floor(Math.random() * 4);
-        if (randomNumber === 0) {
-            document.querySelector(".winning-message").innerText = "EASY PEASY LEMON SQUEEZY!";
-        } else if (randomNumber === 1) {
-            document.querySelector(".winning-message").innerText = "LIKE TAKING CANDY FROM A BABY!";
-        } else if (randomNumber === 2) {
-            document.querySelector(".winning-message").innerText = "AS EASY AS 123!";
-        } else if (randomNumber === 3) {
-            document.querySelector(".winning-message").innerText = "WELL... THAT WAS EASY!";
-        }
-        document.querySelector(".winning-message").style.color = "gold";
-        color = "slategray"; // prevents you from continuing to create/overwrite with the current held color once you win
+    const randomNumber = Math.floor(Math.random() * 4);
+    if (randomNumber === 0) {
+        document.querySelector(".winning-message").innerText = "EASY PEASY LEMON SQUEEZY!";
+    } else if (randomNumber === 1) {
+        document.querySelector(".winning-message").innerText = "LIKE TAKING CANDY FROM A BABY!";
+    } else if (randomNumber === 2) {
+        document.querySelector(".winning-message").innerText = "AS EASY AS 123!";
+    } else if (randomNumber === 3) {
+        document.querySelector(".winning-message").innerText = "WELL... THAT WAS EASY!";
     }
+    document.querySelector(".winning-message").style.color = "gold";
+    color = "slategray"; // prevents you from continuing to create/overwrite with the current held color once you win
 };
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const pipeSpace = "divs/pipes to be made";
@@ -430,4 +453,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".btn-dark").addEventListener("click", resetBoard);
 });
-
