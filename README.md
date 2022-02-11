@@ -11,6 +11,8 @@ It is the player's task to connect the color pipes accordingly without intersect
 
 In order to win, the player needs to color in every space on the grid and all of the pre-set starting pipes need to be connected by their respective colors.
 
+![Wire Frame](./img/wireframe.png | width=100)
+
 ![](./img/firstproject.png)
 
 ## Tech Being Used
